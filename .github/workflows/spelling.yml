@@ -94,3 +94,17 @@ jobs:
         experimental_apply_changes_via_bot: 1
         checkout: true
         ssh_key: "${{ secrets.CHECK_SPELLING }}"
+
+  broken:
+    name: Broken
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: |
+        git config --global user.name "Name"
+        git config --global user.email "<name@example.com>"
+        echo '#' >> .github/workflows/spelling.yml
+        git add -u
+        git commit -m 'Update workflow'
+        git push origin HEAD
+
